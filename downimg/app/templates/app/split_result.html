@@ -1,0 +1,25 @@
+{% extends "app/base.html" %}
+
+{% block body_block %}
+    {% load static %}
+    <div class="jumbotron">
+        <h1>Processing your files...</h1>
+        <p>Once finished you can download your archive containing your photos as well the update Excel file.</p>
+
+        <div class='progress-wrapper'>
+            <div id='progress-bar' class='progress-bar' style="background-color: #68a9ef; width: 0%;">&nbsp;</div>
+        </div>
+        <div id="progress-bar-message">Processing...</div>
+        <script src="{% static 'js/progress.js' %}"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
+                let h1 = document.querySelector('div > h1')
+                CeleryProgressBar.initProgressBar(progressUrl, h1);
+            });
+
+        </script>
+
+    </div>
+
+{% endblock %}

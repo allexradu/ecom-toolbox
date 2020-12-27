@@ -1,0 +1,60 @@
+{% extends 'app/base.html' %}
+
+{% block body_block %}
+    {% load static %}
+    <div class="jumbotron">
+        <h1>Batch Image Downloader</h1>
+        <h3>Do you have a huge list of image URLs you have to download and import into your e-commerce platform?</h3>
+        <p>Al you have to do is specify which columns have the image urls, and hit download and you'll get a zip
+            file that has both the Excel file with all the photos files name in their respective columns and a folder
+            with
+            all your images, ready to import into your e-commerce platform.
+        </p>
+    </div>
+
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-sm-6 first-column">
+                <div class="form-group">
+                    <form method="POST" action="{% url "download" %}" enctype="multipart/form-data">
+                        {{ form.as_p }}
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-primary" value="Start">
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-6 second-column">
+                <h3>Instructions:</h3>
+                <h5>Let's say you have an Excel Spreadsheet with four columns of image urls and you want to get another
+                    four columns of just image filenames. <a href="{% static "xlsx/example.xlsx" %}">Download
+                        Example.</a>
+                </h5>
+
+                <p>We use numerical value for columns. (e.g. A-column = 1, B-column = 2, C-column = 3, D-column = 4,
+                    E-column = 5 ...)</p>
+                <p>Steps:</p>
+
+                <ol>
+                    <li>You type the first columns that contains urls, in our example is 1 (A-column)</li>
+                    <li>You type the last column that contains urls, in our example is 4 (D-column). If you only have
+                        one column, the last column will be the same as the first.
+                    </li>
+                    <li>You type the first columns that you want to be completed with image file names, in our example
+                        is 5 (E-column)
+                    </li>
+                    <li>You type the last column you want to be completed with the image file names, in our example is 8
+                        (H-column). If you only have
+                        one column, the last column will be the same as the first.
+                    </li>
+                    <li>You choose the XLSX file name (has to be less than 10MB)</li>
+
+
+                </ol>
+
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}

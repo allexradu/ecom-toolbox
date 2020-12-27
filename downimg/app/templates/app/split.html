@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+
+{% block body_block %}
+    {% load static %}
+    <div class="jumbotron">
+        <h1>Excel File Splitter</h1>
+        <h3>Do you have a huge excel file you want to import into an e-commerce platform but the file is way to
+            big?</h3>
+        <p>No problem. Just select the file, set by how many rows you want to split and BOOM, you're done, in
+            seconds.</p>
+    </div>
+
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-sm-6 first-column">
+                <div class="form-group">
+                    <form method="POST" action="{% url "split" %}" enctype="multipart/form-data">
+                        {{ split_form.as_p }}
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-primary" value="Start">
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-6 second-column">
+                <h3>Instructions:</h3>
+                <h5>Let's say you have a file with 100,000 lines, and you want to split it by 5000 rows <a
+                        href="{% static "xlsx/split_example.xlsx" %}">Download
+                    Example.</a>
+                </h5>
+
+                <p>Steps:</p>
+
+                <ol>
+                    <li>Type how many lines you want each file to have.</li>
+                    <li>Hit Start</li>
+
+                    <li>Download the zip file containing all the excel files.</li>
+                </ol>
+
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}

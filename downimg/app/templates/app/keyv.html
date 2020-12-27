@@ -1,0 +1,58 @@
+{% extends 'app/base.html' %}
+
+{% block body_block %}
+    {% load static %}
+    <div class="jumbotron">
+        <h1>Key Value Converter</h1>
+        <h3>Do you have migrate from one e-commerce platform to another you have convert key value pairs into columns
+            and rows?</h3>
+        <p>No problem. Just tell use which column are your key value pairs columns and where in the file we should start
+            writing new data..</p>
+    </div>
+
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-sm-6 first-column">
+                <div class="form-group">
+                    <form method="POST" action="{% url "keyv" %}" enctype="multipart/form-data">
+                        {{ keyv_form.as_p }}
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-primary" value="Start">
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-6 second-column">
+                <h3>Instructions:</h3>
+                <h5>Let's say you have a with 9 column file, the product code as A-column, and four pairs of key-value
+                    pairs,see the example to get understand quickly what we are writing about. <a
+                            href="{% static "xlsx/keyv_example.xlsx" %}">Download Example.</a>
+                </h5>
+
+                <p>Steps:</p>
+
+                <ol>
+                    <li>Place you key value as alternate columns (key1 = B-Column, value1 = C-Column, key2 = E-Column,
+                        value2 = F-column ...
+                    </li>
+                    <li>Make sure first column in range is a key.</li>
+
+                    <li>Type first key column (in our example is the column B, so type 2, because is se second column,
+                        we only accept numerical values).
+                    </li>
+                    <li>Type the last value column (in our example is column I, so type 9).</li>
+                    <li>Type the first empty cell were you want the software begin writing your data (in our example is
+                        column J, so type 10).
+                    </li>
+                    <li>Upload your excel file.</li>
+                    <li>Press start.</li>
+                    <li>Download your processed file.</li>
+
+                </ol>
+
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}

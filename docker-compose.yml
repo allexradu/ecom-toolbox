@@ -1,0 +1,182 @@
+version: '3.7'
+
+services:
+  django:
+    restart: always
+    volumes:
+      - type: bind
+        source: ./downimg/
+        target: /app
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+  nginx:
+    restart: always
+    build: ./nginx
+    volumes:
+      - type: bind
+        source: ./downimg/static
+        target: /app/static
+      - type: bind
+        source: ./downimg/media
+        target: /app/media
+    ports:
+      - "9000:80"
+    depends_on:
+      - django
+
+  celery:
+    restart: always
+    build: ./celery
+    command: celery -A downimg worker -l INFO
+    volumes:
+      - type: bind
+        source: ./downimg/
+        target: /app
+    depends_on:
+      - django
+      - redis
+
+  redis:
+    restart: always
+    image: "redis:alpine"
+
+
+
+
+
+  #services:
+  #  django:
+  #    build:
+  #      context: .
+  #    volumes:
+  #      - type: bind
+  #        source: ./downimg/static
+  #        target: /app/static
+  #      - type: bind
+  #        source: ./downimg/media
+  #        target: /app/media
+  #    ports:
+  #      - "8000:8000"
+  #
+  #  nginx:
+  #    build: ./nginx
+  #    volumes:
+  #      - type: bind
+  #          source: ./static
+  #          target: /app/static
+  #      - type: bind
+  #          source: ./media
+  #          target: /app/media
+  #    ports:
+  #      - 1337:80
+  #    depends_on:
+  #      - django
+  #
+  #volumes:
+  #  static_volume:
+  #  media_volume:
+
+
+
+
+
+
+
+
+
+  # version: '3.7'
+
+  # services:
+  #   django:
+  #     volumes:
+  #       - static_volume:/static
+  #       - media_volume:/media
+  #     env_file:
+  #       - .env
+  #     build:
+  #       context: .
+  #     ports:
+  #       - "8000:8000"
+  #   nginx:
+  #     build: ./nginx
+  #     volumes:
+  #       - static_volume:/static
+  #       - media_volume:/media
+  #     ports:
+  #       - "80:80"
+  #     depends_on:
+  #       - django
+
+  #   # celery:
+  #   #   build: .
+  #   #   command: celery -A downimg worker -l INFO
+  #   #   volumes:  #    - .:/app
+  #   #   depends_on:
+  #   #    - django
+  #   #    - redis
+
+  #   # redis:
+  #   #  image: "redis:alpine"
+
+  # volumes:
+  #   static_volume:
+  #   media_volume:
+
+
+
+
+
+#  celery:
+##    build: .
+##    command: celery -A downimg worker -l INFO
+##    volumes:
+##      - .:/app
+##    depends_on:
+##      - django_gunicorn
+##      - redis
+##
+##  redis:
+##    image: "redis:alpine"
+
+
+
+#services:
+#
+#  django:
+#    build: .
+#    container_name: django
+#    #    command: python manage.py runserver 0.0.0.0:8000
+#    volumes:
+#      - static:/static
+#      - media:/media
+#    ports:
+#      - "8000:8000"
+#    #    entrypoint:
+#    #      - DEBUG = 1
+#    #      - DJANGO_ALLOWED_HOSTS = localhost 127.0.0.1
+#    #      - CELERY_BROKER = redis://localhost:6379/0
+#    #      - CELERY_RESULT_BACKEND = 'django-db'
+#    depends_on:
+#      - redis
+#
+##  celery:
+##    build: .
+##    command: celery -A downimg worker -l INFO
+##    volumes:
+##      - .:/app
+##    depends_on:
+##      - django
+##      - redis
+##
+##  redis:
+##    image: "redis:alpine"
+#
+#volumes:
+#  - static:
+#  - media:
+
+
+
+

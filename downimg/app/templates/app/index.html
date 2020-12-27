@@ -1,0 +1,54 @@
+{% extends 'app/base.html' %}
+
+{% block body_block %}
+    {% load static %}
+    <div class="jumbotron">
+        <h1>DownIMG.ML eCommerce Toolbox</h1>
+        <h2>We offer a set of tools for processing Excel Spreadsheets and Batch Download image URLs</h2>
+    </div>
+
+    <div class="index-download-block">
+        <div class="row">
+            <div class="col-sm-4 first-column"><a href="{% url 'download' %}"><i
+                    class="fas fa-cart-arrow-down fa-9x"></i></a>
+            </div>
+            <div class="col-sm-8 second-column">
+                <h2><a href="{% url 'download' %}">Batch Image Downloader</a></h2>
+                <p>Many e-commerce platforms will not allow you to import product photos from some suppliers because
+                    they have special protection to prevent image url from being downloaded. This is often a pain in the
+                    neck when it come to quickly importing products into a new e-commerce platform. Our solution works
+                    like a charm. It uses python to defeat what it's called "CURL REQUEST BLOCK", those requests are
+                    used by that many e-commerce platforms in order to import product images.
+                </p>
+            </div>
+
+        </div>
+    </div>
+    <div class="index-split-block">
+        <div class="row">
+            <div class="col-sm-4 first-column"><a href="{% url 'split' %}"><i class="fas fa-cut fa-9x"></i></a></div>
+            <div class="col-sm-8 second-column">
+                <h2><a href="{% url 'split' %}"> Excel File Splitter</a></h2>
+                <p>Many e-commerce platforms have limitations in terms of how many products can be imported at one time,
+                    if you have tens of thousands of products and your platform crashes after more than a few thousands,
+                    you'll need to split that big Excel File into multiple distinct files, this can be a pain and it can
+                    take you a whole day (speaking from experience) to split a big table. Our solution can split your
+                    table in seconds, yes, seconds. </p>
+            </div>
+        </div>
+    </div>
+    <div class="index-key-block">
+        <div class="row">
+            <div class="col-sm-4 first-column"><a href="{% url 'keyv' %}"><i class="fas fa-key fa-9x"></i></a></div>
+            <div class="col-sm-8 second-column">
+                <h2><a href="{% url 'keyv' %}">Key Value to Excel Converter</a></h2>
+                <p>When migrating from one e-commerce platform to another you'll sometimes find yourself in a situation
+                    where you have a column of keys and a column of values and you need to transpose this so the key is
+                    the column header and the value stays on the same row. It's easier just to show you, but trust me
+                    this will tool save your bottom when it comes to migrations. </p>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
